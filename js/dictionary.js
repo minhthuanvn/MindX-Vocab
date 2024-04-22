@@ -31,7 +31,8 @@ function search(word) {
 function fetchApi(word) {
   container.classList.remove("active");
   infoText.innerHTML = `Searching :) `;
-   fetch(url)
+  let url = `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`;
+  fetch(url)
     .then((response) => response.json())
     .then((result) => data(result, word))
     .catch(() => {
