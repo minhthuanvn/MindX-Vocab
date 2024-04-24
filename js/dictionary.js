@@ -1,5 +1,4 @@
 
-
 const container = document.querySelector(".container"),
   searchInput = container.querySelector("input"),
   sound = document.getElementById("sound");

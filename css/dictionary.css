@@ -1,11 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700&display=swap");
 
-/* * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  --webkit-font-smoothing: antialiased;
-} */
+ 
 
 :root {
   --main-color: #ff0000;
@@ -33,13 +28,7 @@
   color: #fff;
 }
 
-/* body {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  background: #efefef;
-} */
+ 
 
 body.dark {
   --light-color: #aaa;
