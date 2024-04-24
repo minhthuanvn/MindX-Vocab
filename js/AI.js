@@ -6,7 +6,7 @@ const questions = [
       { text: "Blue whale", correct: true },
       { text: "Elephant", correct: false },
       { text: "Giraffe", correct: false },
-    ]
+    ],
   },
   {
     question: "Which is the smallest country in the world?",
@@ -14,27 +14,27 @@ const questions = [
       { text: "Vatican City", correct: true },
       { text: "Bhutan", correct: false },
       { text: "Nepal", correct: false },
-      { text: "Shri Lanka", correct: true },
-    ]
+      { text: "Shri Lanka", correct: false },
+    ],
   },
   {
-    question: "Which is the biggest animal in Vietnam",
+    question: "Which is the biggest country in the world?",
     answers: [
-      { text: "Shark", correct: false },
-      { text: "Blue whale", correct: false },
-      { text: "Elephant", correct: false },
-      { text: "Giraffe", correct: true },
-    ]
+      { text: "Viet Nam", correct: false },
+      { text: "China", correct: false },
+      { text: "Russia", correct: true },
+      { text: "Thailand", correct: false },
+    ],
   },
   {
-    question: "Which is the biggest animal in Asia",
+    question: "Which is the most popular language in the world?",
     answers: [
-      { text: "Shark", correct: false },
-      { text: "Blue whale", correct: false },
-      { text: "Elephant", correct: false },
-      { text: "Giraffe", correct: true },
-    ]
-  }
+      { text: "Vietnamese", correct: false },
+      { text: "English", correct: true },
+      { text: "Chinese", correct: false },
+      { text: "Japanese", correct: false },
+    ],
+  },
 ];
 
 const questionElement = document.getElementById("question");
@@ -57,19 +57,19 @@ function showQuestion() {
   let questionNo = currentQuestionIndex + 1;
   questionElement.innerHTML = questionNo + ". " + currentQuestion.question;
 
-  currentQuestion.answers.forEach(answer => {
+  currentQuestion.answers.forEach((answer) => {
     const button = document.createElement("button");
     button.innerHTML = answer.text;
-    button.classList.add("btn");
+    button.classList.add("btnAI");
     answerButtons.appendChild(button);
-    if (answer.correct){
+    if (answer.correct) {
       button.dataset.correct = answer.correct;
     }
-    button.addEventListener("click",selectAnswer);
+    button.addEventListener("click", selectAnswer);
   });
 }
 
-function resetState(){
+function resetState() {
   nextButton.style.display = "none";
   while (answerButtons.firstChild) {
     answerButtons.removeChild(answerButtons.firstChild);
@@ -85,7 +85,7 @@ function selectAnswer(e) {
   } else {
     selectedBtn.classList.add("incorrect");
   }
-  Array.from(answerButtons.children).forEach(button => {
+  Array.from(answerButtons.children).forEach((button) => {
     if (button.dataset.correct === "true") {
       button.classList.add("correct");
     }
@@ -94,23 +94,23 @@ function selectAnswer(e) {
   nextButton.style.display = "block";
 }
 
-function showScore(){
+function showScore() {
   resetState();
   questionElement.innerHTML = `Your scored ${score} out of ${questions.length}!`;
   nextButton.innerHTML = "Play Again";
   nextButton.style.display = "block";
 }
-function handleNextButton(){
+function handleNextButton() {
   currentQuestionIndex++;
-  if(currentQuestionIndex < questions.length) {
+  if (currentQuestionIndex < questions.length) {
     showQuestion();
   } else {
     showScore();
   }
 }
 
-nextButton.addEventListener("click",()=>{
-  if(currentQuestionIndex < questions.length) {
+nextButton.addEventListener("click", () => {
+  if (currentQuestionIndex < questions.length) {
     handleNextButton();
   } else {
     startQuiz();
@@ -118,4 +118,3 @@ nextButton.addEventListener("click",()=>{
 });
 
 startQuiz();
-

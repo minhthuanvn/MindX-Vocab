@@ -1,3 +1,5 @@
+
+
 const container = document.querySelector(".container"),
   searchInput = container.querySelector("input"),
   sound = document.getElementById("sound");
@@ -53,3 +55,7 @@ removeIcon.addEventListener("click", () => {
   container.classList.remove("active");
   infoText.style.color = "#9A9A9A";
 });
+
+
+
+
