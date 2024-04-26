@@ -1,5 +1,10 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
-import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
+import {
+  getFirestore,
+  collection,
+  getDocs,
+} from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -13,7 +18,7 @@ const firebaseConfig = {
   storageBucket: "mindx-vocab.appspot.com",
   messagingSenderId: "605490527398",
   appId: "1:605490527398:web:640c89e9de832725260867",
-  measurementId: "G-0VL2ZC5K2L"
+  measurementId: "G-0VL2ZC5K2L",
 };
 
 // Initialize Firebase
@@ -50,6 +55,12 @@ function startQuiz() {
 
 function showQuestion() {
   resetState();
+  if (currentQuestionIndex < 0 || currentQuestionIndex >= questions.length) {
+    console.error(
+      "Error at showQuestion: currentQuestionIndex is out of bounds."
+    );
+    return;
+  }
   let currentQuestion = questions[currentQuestionIndex];
   let questionNo = currentQuestionIndex + 1;
   questionElement.innerHTML = questionNo + ". " + currentQuestion.question;
@@ -97,6 +108,7 @@ function showScore() {
   nextButton.innerHTML = "Play Again";
   nextButton.style.display = "block";
 }
+
 function handleNextButton() {
   currentQuestionIndex++;
   if (currentQuestionIndex < questions.length) {
@@ -116,3 +128,5 @@ nextButton.addEventListener("click", () => {
 
 startQuiz();
 fetchQuizData();
+
+// Fix error at showQuestion if (questions.length > 0 && questions[currentQuestionIndex] === undefined) { console.error("Error at showQuestion: currentQuestionIndex is out of bounds."); return; }
