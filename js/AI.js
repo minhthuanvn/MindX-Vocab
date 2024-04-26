@@ -1,41 +1,24 @@
-const questions = [
-  {
-    question: "Which is the biggest animal in the world?",
-    answers: [
-      { text: "Shark", correct: false },
-      { text: "Blue whale", correct: true },
-      { text: "Elephant", correct: false },
-      { text: "Giraffe", correct: false },
-    ],
-  },
-  {
-    question: "Which is the smallest country in the world?",
-    answers: [
-      { text: "Vatican City", correct: true },
-      { text: "Bhutan", correct: false },
-      { text: "Nepal", correct: false },
-      { text: "Shri Lanka", correct: false },
-    ],
-  },
-  {
-    question: "Which is the biggest country in the world?",
-    answers: [
-      { text: "Viet Nam", correct: false },
-      { text: "China", correct: false },
-      { text: "Russia", correct: true },
-      { text: "Thailand", correct: false },
-    ],
-  },
-  {
-    question: "Which is the most popular language in the world?",
-    answers: [
-      { text: "Vietnamese", correct: false },
-      { text: "English", correct: true },
-      { text: "Chinese", correct: false },
-      { text: "Japanese", correct: false },
-    ],
-  },
-];
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
+import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyBY073xa-D0-15Gwzow2gAtuX7yyoKIhJA",
+  authDomain: "mindx-vocab.firebaseapp.com",
+  databaseURL: "https://mindx-vocab-default-rtdb.firebaseio.com",
+  projectId: "mindx-vocab",
+  storageBucket: "mindx-vocab.appspot.com",
+  messagingSenderId: "605490527398",
+  appId: "1:605490527398:web:640c89e9de832725260867",
+  measurementId: "G-0VL2ZC5K2L"
+};
+
+// Initialize Firebase
+export const app = initializeApp(firebaseConfig);
+export const db = getFirestore(app);
 
 const questionElement = document.getElementById("question");
 const answerButtons = document.getElementById("answer-buttons");
@@ -43,6 +26,20 @@ const nextButton = document.getElementById("next-btn");
 
 let currentQuestionIndex = 0;
 let score = 0;
+let questions = [];
+
+async function fetchQuizData() {
+  const quizColRef = collection(db, "questions");
+  const quizSnapshot = await getDocs(quizColRef);
+  quizSnapshot.forEach((doc) => {
+    const quizData = doc.data();
+    questions = quizData.questions.map((q, index) => ({
+      ...q,
+      correctAnswerIndex: index,
+    }));
+  });
+  startQuiz();
+}
 
 function startQuiz() {
   currentQuestionIndex = 0;
@@ -118,3 +115,4 @@ nextButton.addEventListener("click", () => {
 });
 
 startQuiz();
+fetchQuizData();
