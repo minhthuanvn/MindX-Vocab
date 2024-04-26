@@ -13,7 +13,7 @@
       <ul class="chatbox">
         <li class="chat incoming">
           <span class="material-symbols-outlined">smart_toy</span>
-          <p>Hi there 👋<br />How can I help you today?</p>
+          <p>Hi my darling,<br />How are you?</p>
         </li>
       </ul>
       <div class="chat-input">
